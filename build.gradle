@@ -1,0 +1,57 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+ext {
+    izumi = rootProject.file('gradle/include/Izumi.gradle')
+    publish = rootProject.file('gradle/include/Publish.gradle')
+    dexCountGraph = rootProject.file('gradle/include/DexCountGraph.gradle')
+    jacocoConfig = rootProject.file('gradle/include/jacocoConfiguration.gradle')
+    retrolambdaPlugin = 'me.tatarka.retrolambda'
+
+    // This is the default minSdkVersion as used e.g. by the app, but some library projects
+    // override it with 13 as they are shared with other apps with different requirements.
+    minSdkVersion = 16
+
+    // This is the minimum minSdkVersion required to enable pre-dexing.
+    minSdkVersionForPreDexing = 21
+
+    targetSdkVersionHereInstaller = 25
+    targetSdkVersion = 25
+    compileSdkVersion = 26
+    buildToolsVersion = '25.0.2'
+
+    deps = [:]
+
+    deps.versions = [
+            robolectric: '3.4.2'
+    ]
+
+    deps.unitTests = [
+            robolectric: [
+                    robolectric: "org.robolectric:robolectric:${deps.versions.robolectric}"
+            ]
+    ]
+}
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
